@@ -1,6 +1,6 @@
 // parse the Floating Number
-export function ParseFloatNUmber(str, val) {
-  if (!str) return;
+export function ParseFloatNumber(str, val) {
+  if (!str && val <= 0) return;
 
   return Number.parseFloat(str).toFixed(val);
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { SocketContext } from '../store/Context/SocketContext';
 import { tickerChennel } from '../store/Context/payload-config';
 import Cardbox from './Cardbox';
@@ -76,23 +76,12 @@ const tiers = {
 
 export default function TickerCard() {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const socketContext = useContext(SocketContext);
   const connected = useSelector(({ socket }) => socket.connected);
-  const tickerinfo = useSelector(({ ticker }) => ticker.tickerinfo);
-  const ticker = useSelector(({ ticker }) => ticker.ticker);
-
-  const [tickerData, setTickerData] = useState([]);
 
   const handleTicker = () => {
-    socketContext.ws.send(tickerChennel);
+    socketContext.ws.current.send(tickerChennel);
   };
-
-  useEffect(() => {
-    if (tickerinfo?.chanId === ticker.CHANNEL_ID) {
-      setTickerData(ticker.item);
-    }
-  }, [tickerinfo, ticker]);
 
   return (
     <React.Fragment>
@@ -126,7 +115,7 @@ export default function TickerCard() {
               color="primary"
               variant="outlined"
               className={classes.link}
-              onClick={() => socketContext.ws.close()}
+              onClick={() => socketContext.ws.current.close()}
             >
               Disconnect
             </Button>
@@ -160,8 +149,7 @@ export default function TickerCard() {
           component="p"
         >
           Quickly build an effective TickerCard table for your potential
-          customers with this layout. It&apos;s built with default Material-UI
-          components with little customization.
+          customers with this layout.
         </Typography>
         {/* TiCKER CARD */}
         <Cardbox />
@@ -190,7 +178,7 @@ export default function TickerCard() {
               <CardContent>
                 <div className={classes.cardTickerCard}>
                   <Typography component="h2" variant="h3" color="textPrimary">
-                    $ {ParseFloatNUmber(tickerData?.ASK_SIZE, 3) || 0}
+                    $ {ParseFloatNumber(tickerData?.ASK_SIZE, 3) || 0}
                   </Typography>
                   <Typography variant="h6" color="textSecondary">
                     /mo

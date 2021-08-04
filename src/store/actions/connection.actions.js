@@ -20,13 +20,14 @@ export const disconnect = () => {
 };
 
 // ACTIONS FOR REDUX
-
+// coneect Socket
 const connectedSocket = () => {
   return {
     type: CONNECT_SOCKET,
   };
 };
 
+// Disconnected  Socket
 const disconnectSocket = () => {
   return {
     type: DISCONNECT_SOCKET,

@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { tickerChennel } from '../store/Context/payload-config';
 import { SocketContext } from '../store/Context/SocketContext';
-import { ParseFloatNUmber } from '../utils/helpers';
+import { ParseFloatNumber } from '../utils/helpers';
 
 function Cardbox() {
   const dispatch = useDispatch();
@@ -14,9 +13,9 @@ function Cardbox() {
 
   const [tickerData, setTickerData] = useState([]);
 
-  const handleTicker = () => {
-    socketContext.ws.send(tickerChennel);
-  };
+  // const handleTicker = () => {
+  //   socketContext.ws.current.send(tickerChennel);
+  // };
 
   useEffect(() => {
     if (tickerChanId === ticker?.CHANNEL_ID) {
@@ -67,7 +66,7 @@ function Cardbox() {
                 <span
                   style={{ color: '#000', paddingLeft: 8, paddingRight: 8 }}
                 >
-                  {ParseFloatNUmber(tickerData?.VOLUME, 3) || 0}
+                  {ParseFloatNumber(tickerData?.VOLUME, 3) || 0}
                 </span>
                 btc
               </div>
@@ -87,7 +86,7 @@ function Cardbox() {
                 justifyContent: 'end',
               }}
             >
-              {ParseFloatNUmber(tickerData?.LAST_PRICE) || 0}
+              {ParseFloatNumber(tickerData?.LAST_PRICE) || 0}
             </div>
             <div
               style={{
@@ -97,8 +96,8 @@ function Cardbox() {
                 paddingBottom: 8,
               }}
             >
-              {ParseFloatNUmber(tickerData?.DAILY_CHANGE, 2) || 0} (
-              {ParseFloatNUmber(tickerData?.DAILY_CHANGE_PERC, 2) || 0} % )
+              {ParseFloatNumber(tickerData?.DAILY_CHANGE, 2) || 0} (
+              {ParseFloatNumber(tickerData?.DAILY_CHANGE_PERC, 2) || 0} % )
             </div>
             <div style={{ fontSize: 14, color: '#616161', paddingRight: 8 }}>
               {' '}
