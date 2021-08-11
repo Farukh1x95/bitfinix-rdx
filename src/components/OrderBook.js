@@ -74,12 +74,12 @@ const OrderBook = () => {
   const HandlePrecision = type => {
     let value = 1;
     console.log(precision, value);
-    if (precision < 1) return;
     if (type === 1) {
-      value = precision + 1;
+      value = precision + value;
     }
     if (type === 0) {
-      value = precision - 1;
+      if (precision < 1) return;
+      value = precision - value;
     }
 
     setPrecision(value);
