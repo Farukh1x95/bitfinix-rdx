@@ -5,18 +5,21 @@ import './App.css';
 import WebSocketContext from './store/Context/WebSocketContext';
 import Notifications from './components/Notifications';
 import TickerCard from './components/TickerCard';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import store from './store';
 import { Provider } from 'react-redux';
+import theme from './theme';
 
 function App() {
   return (
     <Provider store={store}>
-      <WebSocketContext>
-        <CssBaseline />
-        <TickerCard />
-        <Notifications />
-      </WebSocketContext>
+      <ThemeProvider theme={theme}>
+        <WebSocketContext>
+          <CssBaseline />
+          <TickerCard />
+          <Notifications />
+        </WebSocketContext>
+      </ThemeProvider>
     </Provider>
   );
 }
